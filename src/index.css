@@ -21,12 +21,12 @@
 ------------------------------------------------------------------- */
 :root {
   /* Purple and white theme. Token names kept from the first palette:
-     "obsidian" is now the deep purple, "copper" the soft lilac highlight. */
+     "obsidian" is now the deep purple, "copper" the gold highlight. */
   --obsidian: 36 19 58;      /* #24133A deep silky purple (header, footer, admin sidebar) */
   --charcoal: 52 32 79;      /* #34204F raised surfaces on the deep purple */
   --accent: 106 61 154;      /* #6A3D9A purple buttons and links (7.6:1 with white text) */
   --accent-strong: 86 49 126;/* #56317E pressed / text on light backgrounds */
-  --copper: 205 179 242;     /* #CDB3F2 lilac highlights, on the deep purple only */
+  --copper: 212 175 55;      /* #D4AF37 gold highlights, on the deep purple only (8.1:1) */
   --ivory: 250 248 253;      /* #FAF8FD page background, white with a hint of lavender */
   --paper: 255 255 255;      /* #FFFFFF cards and panels */
   --ink: 30 21 48;           /* #1E1530 body text */
