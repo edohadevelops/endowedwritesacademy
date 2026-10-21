@@ -1,0 +1,13 @@
+node_modules
+dist
+.env
+.env.local
+.env.*.local
+test-results
+playwright-report
+.netlify
+supabase/.temp
+*.log
+.DS_Store
+tests/.artifacts
+tsconfig.tsbuildinfo

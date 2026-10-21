@@ -1,0 +1,17 @@
+# Minimal Supabase CLI config for this project.
+# `supabase link` fills in the project; these settings are applied on deploy.
+project_id = "endowed-academy"
+
+[auth]
+# No public sign-up. The owner is invited from the dashboard.
+enable_signup = false
+site_url = "http://localhost:5173"
+additional_redirect_urls = ["http://localhost:5173/admin/reset-password"]
+
+[auth.email]
+enable_signup = false
+
+[functions.submit-comment]
+# Visitors aren't signed in, and publishable keys aren't JWTs, so the function
+# does its own checks (validation, published article, rate limit) instead.
+verify_jwt = false

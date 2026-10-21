@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns='http://www.w3.org/2005/Atom' xmlns:blogger='http://schemas.google.com/blogger/2018' xmlns:thr='http://purl.org/syndication/thread/1.0'>
+  <id>tag:blogger.com,1999:blog-1</id>
+  <title>TEST BLOG</title>
+  <entry>
+    <id>tag:blogger.com,1999:blog-1.post-100</id>
+    <blogger:type>POST</blogger:type>
+    <blogger:status>LIVE</blogger:status>
+    <author><name>Test Author</name></author>
+    <title>IDENTITY</title>
+    <content type='html'>&lt;div class="separator"&gt;&lt;a href="https://blogger.googleusercontent.com/img/full.jpg"&gt;&lt;img src="https://blogger.googleusercontent.com/img/s320.jpg" /&gt;&lt;/a&gt;&lt;/div&gt;&lt;div style="text-align: justify;"&gt;First paragraph about identity.&lt;br /&gt;&lt;br /&gt;Second paragraph.&lt;/div&gt;&lt;h1&gt;A heading&lt;/h1&gt;&lt;p&gt;&lt;b&gt;Bold&lt;/b&gt; and &lt;script&gt;alert(1)&lt;/script&gt;safe.&lt;/p&gt;</content>
+    <blogger:created>2024-08-17T10:00:00.000Z</blogger:created>
+    <published>2024-08-17T10:00:00.000Z</published>
+    <updated>2024-08-18T10:00:00.000Z</updated>
+    <blogger:filename>/2024/08/identity.html</blogger:filename>
+    <category scheme='http://www.blogger.com/atom/ns#' term='Self Development'/>
+    <category scheme='http://www.blogger.com/atom/ns#' term='Youth'/>
+  </entry>
+  <entry>
+    <id>tag:blogger.com,1999:blog-1.post-200</id>
+    <blogger:type>POST</blogger:type>
+    <blogger:status>DRAFT</blogger:status>
+    <author><name>Test Author</name></author>
+    <title>Unfinished thoughts</title>
+    <content type='html'>&lt;p&gt;Draft text&lt;/p&gt;</content>
+    <published>2025-01-01T10:00:00.000Z</published>
+  </entry>
+  <entry>
+    <id>tag:blogger.com,1999:blog-1.post-300</id>
+    <blogger:type>POST</blogger:type>
+    <blogger:status>DELETED</blogger:status>
+    <title>Gone</title>
+    <content type='html'>&lt;p&gt;x&lt;/p&gt;</content>
+    <published>2025-01-01T10:00:00.000Z</published>
+  </entry>
+  <entry>
+    <id>tag:blogger.com,1999:blog-1.post-400</id>
+    <blogger:type>COMMENT</blogger:type>
+    <blogger:status>LIVE</blogger:status>
+    <blogger:parent>tag:blogger.com,1999:blog-1.post-100</blogger:parent>
+    <author><name>Reader One</name></author>
+    <content type='html'>This &lt;b&gt;blessed&lt;/b&gt; me.</content>
+    <published>2024-08-20T10:00:00.000Z</published>
+  </entry>
+</feed>

@@ -1,0 +1,207 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Metric-matched fallbacks (measured from the font files) so text doesn't
+   jump when the web fonts finish loading. */
+@font-face {
+  font-family: 'Newsreader Fallback';
+  src: local('Times New Roman'), local('Liberation Serif'), local('Times');
+  size-adjust: 100.3%; ascent-override: 73.3%; descent-override: 26.4%; line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Hanken Grotesk Fallback';
+  src: local('Arial'), local('Liberation Sans'), local('Helvetica');
+  size-adjust: 100.3%; ascent-override: 99.7%; descent-override: 30.2%; line-gap-override: 0%;
+}
+
+/* ------------------------------------------------------------------
+   Design tokens. RGB triplets so Tailwind can apply alpha.
+   --accent / --accent-strong are overridden at runtime from settings.
+------------------------------------------------------------------- */
+:root {
+  /* Purple and white theme. Token names kept from the first palette:
+     "obsidian" is now the deep purple, "copper" the soft lilac highlight. */
+  --obsidian: 36 19 58;      /* #24133A deep silky purple (header, footer, admin sidebar) */
+  --charcoal: 52 32 79;      /* #34204F raised surfaces on the deep purple */
+  --accent: 106 61 154;      /* #6A3D9A purple buttons and links (7.6:1 with white text) */
+  --accent-strong: 86 49 126;/* #56317E pressed / text on light backgrounds */
+  --copper: 205 179 242;     /* #CDB3F2 lilac highlights, on the deep purple only */
+  --ivory: 250 248 253;      /* #FAF8FD page background, white with a hint of lavender */
+  --paper: 255 255 255;      /* #FFFFFF cards and panels */
+  --ink: 30 21 48;           /* #1E1530 body text */
+  --stone: 103 94 120;       /* #675E78 secondary text (5.8:1 on the page) */
+  --line: 230 224 240;       /* #E6E0F0 borders */
+  --mist: 185 172 207;       /* #B9ACCF secondary text on the deep purple */
+  --success: 31 100 60;      /* AA on its own 10% tint */
+  --danger: 178 40 40;
+  --warn: 138 88 8;
+
+  --font-serif: 'Newsreader Variable', 'Newsreader Fallback', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Hanken Grotesk Variable', 'Hanken Grotesk Fallback', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-read: var(--font-serif);
+
+  --space-gutter: 1rem;
+  --dur-fast: 140ms;
+  --dur-base: 220ms;
+  color-scheme: light;
+}
+@media (min-width: 768px) { :root { --space-gutter: 2rem; } }
+:root[data-type='modern'] { --font-read: var(--font-sans); }
+
+html { -webkit-text-size-adjust: 100%; }
+body {
+  @apply bg-ivory text-ink font-sans antialiased;
+  font-feature-settings: 'kern', 'liga';
+  overflow-x: hidden;
+}
+h1, h2, h3, h4 { font-family: var(--font-serif); font-optical-sizing: auto; letter-spacing: -0.01em; }
+img, video { max-width: 100%; height: auto; }
+::selection { background: rgb(var(--copper) / 0.35); }
+
+:focus-visible {
+  outline: 2px solid rgb(var(--accent));
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+.on-dark :focus-visible { outline-color: rgb(var(--copper)); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+
+.container-site { @apply mx-auto w-full max-w-site; padding-inline: var(--space-gutter); }
+.sr-only-focusable:not(:focus) { @apply sr-only; }
+
+/* ------------------------------------------------------------------
+   Buttons & form controls
+------------------------------------------------------------------- */
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded px-4 font-sans text-sm font-semibold
+           transition-colors duration-150 disabled:cursor-not-allowed disabled:opacity-50;
+    min-height: 2.5rem;
+  }
+  .btn-primary { @apply bg-accent text-white hover:bg-accent-strong; }
+  .btn-dark { @apply bg-obsidian text-ivory hover:bg-charcoal; }
+  .btn-outline { @apply border border-line bg-paper text-ink hover:border-stone; }
+  .btn-ghost { @apply text-ink hover:bg-ink/5; }
+  .btn-danger { @apply bg-danger text-white hover:opacity-90; }
+  .btn-sm { min-height: 2rem; @apply px-3 text-xs; }
+
+  .field-label { @apply mb-1.5 block text-sm font-medium text-ink; }
+  .field-hint { @apply mt-1 text-xs text-stone; }
+  .field-error { @apply mt-1 text-xs font-medium text-danger; }
+  .input {
+    @apply w-full rounded border border-line bg-paper px-3 py-2 text-[0.95rem] text-ink
+           placeholder:text-stone/70 transition-colors focus:border-accent focus:outline-none
+           focus:ring-2 focus:ring-accent/20;
+    min-height: 2.6rem;
+  }
+  .input[aria-invalid='true'] { @apply border-danger; }
+  .tag-pill { @apply inline-flex items-center rounded-full border border-line px-3 py-1 text-xs font-medium text-stone; }
+
+  .skeleton { @apply animate-pulse rounded bg-ink/10; }
+}
+
+/* ------------------------------------------------------------------
+   Article typography — shared by the public page, the preview and
+   the editor surface so what the owner writes is what readers see.
+------------------------------------------------------------------- */
+.prose-article {
+  font-family: var(--font-read);
+  font-size: 1.16rem;
+  line-height: 1.75;
+  color: rgb(var(--ink));
+  overflow-wrap: break-word;
+}
+.prose-article > * + * { margin-top: 1.15em; }
+.prose-article h2 {
+  font-size: 1.85rem; line-height: 1.2; font-weight: 500;
+  margin-top: 2.2em; scroll-margin-top: 6rem;
+}
+.prose-article h3 {
+  font-size: 1.4rem; line-height: 1.3; font-weight: 500;
+  margin-top: 1.8em; scroll-margin-top: 6rem;
+}
+.prose-article h4 { font-size: 1.15rem; font-weight: 600; margin-top: 1.6em; }
+.prose-article h2 + *, .prose-article h3 + * { margin-top: 0.6em; }
+.prose-article a { color: rgb(var(--accent-strong)); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.prose-article a:hover { text-decoration-thickness: 2px; }
+.prose-article strong { font-weight: 600; }
+.prose-article ul, .prose-article ol { padding-left: 1.4em; }
+.prose-article ul { list-style: disc; }
+.prose-article ol { list-style: decimal; }
+.prose-article li + li { margin-top: 0.35em; }
+.prose-article li::marker { color: rgb(var(--accent)); }
+.prose-article li p { margin: 0; }
+.prose-article blockquote {
+  border-left: 3px solid rgb(var(--accent));
+  padding: 0.2em 0 0.2em 1.2em;
+  font-style: italic;
+  font-size: 1.28rem;
+  color: rgb(var(--charcoal));
+}
+.prose-article hr { border: 0; text-align: center; margin: 2.5em 0; }
+.prose-article hr::after { content: '◆ ◆ ◆'; color: rgb(var(--accent)); letter-spacing: 1em; font-size: 0.6rem; }
+.prose-article code {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 0.86em; background: rgb(var(--ink) / 0.06); padding: 0.1em 0.35em; border-radius: 3px;
+}
+.prose-article pre {
+  background: rgb(var(--obsidian)); color: rgb(var(--ivory));
+  padding: 1.1rem 1.25rem; border-radius: 8px; overflow-x: auto;
+  font-size: 0.9rem; line-height: 1.6;
+}
+.prose-article pre code { background: none; padding: 0; font-size: inherit; color: inherit; }
+.prose-article figure { margin-top: 2em; margin-bottom: 2em; }
+.prose-article figure img, .prose-article > p > img, .prose-article > img { border-radius: 8px; width: 100%; background: rgb(var(--line)); }
+.prose-article figcaption { margin-top: 0.6rem; font-family: var(--font-sans); font-size: 0.85rem; line-height: 1.4; color: rgb(var(--stone)); }
+.prose-article .table-wrap { overflow-x: auto; }
+.prose-article table { width: 100%; border-collapse: collapse; font-family: var(--font-sans); font-size: 0.95rem; }
+.prose-article th, .prose-article td { border: 1px solid rgb(var(--line)); padding: 0.55rem 0.75rem; text-align: left; vertical-align: top; }
+.prose-article th { background: rgb(var(--ink) / 0.04); font-weight: 600; }
+.prose-article [data-type='block-math'] { overflow-x: auto; overflow-y: hidden; padding: 0.4em 0; text-align: center; }
+.prose-article .katex { font-size: 1.05em; }
+.prose-article > p:first-of-type::first-letter {
+  float: left; font-size: 3.6em; line-height: 0.85; padding: 0.06em 0.12em 0 0;
+  font-family: var(--font-serif); color: rgb(var(--accent)); font-weight: 500;
+}
+.prose-article.no-dropcap > p:first-of-type::first-letter { all: unset; }
+
+/* CTA block inserted from the editor */
+.prose-article aside.cta-block {
+  font-family: var(--font-sans);
+  background: rgb(var(--obsidian)); color: rgb(var(--ivory));
+  border-radius: 10px; padding: 1.5rem 1.6rem; margin: 2.2em 0;
+}
+.prose-article aside.cta-block h4 { font-family: var(--font-serif); font-size: 1.35rem; font-weight: 500; margin: 0 0 0.35rem; color: rgb(var(--ivory)); }
+.prose-article aside.cta-block p { font-size: 0.98rem; line-height: 1.55; color: rgb(var(--mist)); margin: 0 0 1rem; }
+.prose-article aside.cta-block a {
+  display: inline-flex; align-items: center; min-height: 2.5rem; padding: 0 1rem;
+  background: rgb(var(--accent)); color: #fff; text-decoration: none; border-radius: 5px; font-weight: 600; font-size: 0.9rem;
+}
+.prose-article aside.cta-block a:hover { background: rgb(var(--accent-strong)); }
+
+.prose-article .video-embed { position: relative; aspect-ratio: 16 / 9; border-radius: 8px; overflow: hidden; background: rgb(var(--obsidian)); }
+.prose-article .video-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+/* TipTap editor surface */
+.editor-surface .ProseMirror { outline: none; min-height: 50vh; }
+.editor-surface .ProseMirror p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder); float: left; color: rgb(var(--stone) / 0.7); pointer-events: none; height: 0;
+}
+.editor-surface .ProseMirror > p:first-of-type::first-letter { all: unset; }
+.editor-surface .ProseMirror .ProseMirror-selectednode { outline: 2px solid rgb(var(--accent)); outline-offset: 3px; border-radius: 6px; }
+.editor-surface .ProseMirror table .selectedCell { background: rgb(var(--copper) / 0.15); }
+.editor-surface .ProseMirror [data-type='inline-math'], .editor-surface .ProseMirror [data-type='block-math'] { cursor: pointer; }
+
+/* Page entrance — one quiet moment, not per-section. */
+@keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.animate-rise { animation: rise 600ms cubic-bezier(0.2, 0.7, 0.2, 1) both; }
