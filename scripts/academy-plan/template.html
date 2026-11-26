@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Endowed Academy Plan</title>
+<link rel="stylesheet" href="plan.css">
+</head>
+<body>
+<header class="cover"><div class="wrap">
+  <p class="brand"><b>The</b> Endowed Academy</p>
+  <h1>Let’s plan your online academy</h1>
+  <p>Hi Esther! These questions help me build the academy around the way you teach. Think of it like setting up your classroom online.</p>
+  <ul class="tips">
+    <li>There are no wrong answers. If you’re not sure yet, just say so.</li>
+    <li>Parts 1 to 3 matter most. Start there if you’re short on time.</li>
+    <li>Your answers save on this phone as you type, so you can stop and come back later.</li>
+    <li>When you finish, tap Send my answers at the bottom.</li>
+  </ul>
+</div></header>
+
+<div class="bar"><div class="wrap">
+  <div class="track" aria-hidden="true"><div class="fill" id="fill"></div></div>
+  <span class="count" id="count">0 of %%TOTAL%% answered</span>
+</div></div>
+
+<main><div class="wrap">
+<form class="plan" id="plan" novalidate>
+  <p class="hp"><label>Leave this empty <input name="website" id="website" tabindex="-1" autocomplete="off"></label></p>
+
+%%QUESTIONS%%
+
+  <section class="send" aria-labelledby="send-h">
+    <h2 id="send-h">All done? Send it to Amen</h2>
+    <div class="field">
+      <label for="name">Your name</label>
+      <input type="text" id="name" name="name" value="Esther" autocomplete="name">
+    </div>
+    <p>You can send now and again later. Amen will see the newest version each time.</p>
+    <div class="btns">
+      <button class="btn gold" type="submit" id="submit">Send my answers</button>
+    </div>
+    <p class="status" id="status" role="status"></p>
+    <div id="backup" hidden>
+      <p>If sending doesn’t work, send your answers on WhatsApp instead.</p>
+      <div class="btns" style="margin-top:10px">
+        <a class="btn gold" id="wa" href="https://wa.me/" target="_blank" rel="noopener">Send on WhatsApp</a>
+        <button class="btn line" type="button" id="copy">Copy my answers</button>
+      </div>
+      <textarea id="plain" readonly hidden aria-label="Your answers as text"></textarea>
+    </div>
+  </section>
+</form>
+</div></main>
+
+<script src="config.js"></script>
+<script src="plan.js"></script>
+</body>
+</html>
