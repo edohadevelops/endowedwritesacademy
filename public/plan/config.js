@@ -1,7 +1,6 @@
-// Your Supabase project details. Both are safe to be public.
-// Find them in Supabase: Project Settings → Data API (URL) and Project Settings → API Keys (publishable key).
+// Supabase project for the planning form (the Together project). Both values are public by design.
 // Never put the secret or service_role key here.
 window.PLAN_CONFIG = {
-  SUPABASE_URL: "https://YOUR-PROJECT.supabase.co",
-  SUPABASE_KEY: "sb_publishable_YOUR-KEY",
+  SUPABASE_URL: "https://sonbphyeomzzcdyuiotl.supabase.co",
+  SUPABASE_KEY: "sb_publishable_H7op9xXBAKyfKYguOQhuKw_RaNxV5T_",
 };
