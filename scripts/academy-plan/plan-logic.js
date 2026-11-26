@@ -97,11 +97,11 @@ form.addEventListener("submit", async (e) => {
       headers: { "apikey": CFG.SUPABASE_KEY, "Content-Type": "application/json", "Prefer": "return=minimal" },
       body: JSON.stringify({ name: form.elements.name.value.trim().slice(0, 200) || "Esther", answered: refresh(), answers: answersList(), summary: asText() }),
     });
-    if (!res.ok) throw new Error(String(res.status));
+    if (!res.ok) { const t = await res.text().catch(() => ""); throw new Error(res.status + " " + t.slice(0, 160)); }
     status.textContent = "Thank you, Esther! Your answers have been sent to Amen. You can keep editing and send again any time.";
     document.getElementById("backup").hidden = true;
   } catch (err) {
-    status.textContent = "That didn’t go through. Check your internet and try again, or use WhatsApp below.";
+    status.textContent = "That didn’t go through. Check your internet and try again, or use WhatsApp below. (Details for Amen: " + err.message + ")";
     showBackup();
   } finally { btn.disabled = false; }
 });
