@@ -33,9 +33,8 @@ function signOut() {
 async function load() {
   $("summary-line").textContent = "Loading…"; $("app-msg").textContent = "";
   const r = await fetch(BASE + "/rest/v1/academy_plan_responses?select=*&order=created_at.desc", {
-    headers: { apikey: CFG.SUPABASE_KEY, Authorization: "Bearer " + session.access_token },
+    headers: { apikey: CFG.SUPABASE_KEY },
   });
-  if (r.status === 401) { signOut(); $("login-err").textContent = "Your sign-in expired. Please sign in again."; return; }
   if (!r.ok) { $("summary-line").textContent = ""; $("app-msg").textContent = "Couldn’t load responses (" + r.status + "). Check that the SQL has been run."; return; }
   rows = await r.json();
   renderList();
@@ -43,7 +42,7 @@ async function load() {
 
 function renderList() {
   if (!rows.length) {
-    $("summary-line").textContent = "Signed in as " + (session.email || "you") + ".";
+    $("summary-line").textContent = "No submissions yet.";
     $("subs").innerHTML = "";
     $("detail-bar").hidden = true;
     $("detail").innerHTML = `<div class="empty-state"><p>No answers yet. When Esther taps Send, her answers show up here.</p><p>If you’re sure she sent them and nothing shows, check the email in the SQL matches the one you signed in with.</p></div>`;
@@ -75,7 +74,7 @@ function select(i) {
 
 $("subs").addEventListener("click", e => { const b = e.target.closest(".sub"); if (b) select(Number(b.dataset.i)); });
 $("reload").addEventListener("click", () => load());
-$("logout").addEventListener("click", signOut);
+
 $("copy-one").addEventListener("click", () => {
   if (!current) return;
   const txt = current.summary || "";
@@ -97,5 +96,8 @@ $("login").addEventListener("submit", async e => {
   finally { btn.disabled = false; }
 });
 
-if (session) { $("login").hidden = true; $("app").hidden = false; load(); }
+// No sign-in: the page shows the responses straight away.
+$("login").hidden = true; $("app").hidden = false;
+if (!BASE || BASE.includes("YOUR-PROJECT")) $("app-msg").textContent = "Supabase details are missing from config.js.";
+else load();
 })();
